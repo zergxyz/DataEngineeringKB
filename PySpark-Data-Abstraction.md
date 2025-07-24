@@ -1,5 +1,5 @@
 # Spark Data Abstraction
-This document summarize the 3 types of data abstraction in Apache Spark and focus main on the pySpark perspective. 
+This document summarize the 3 types of data abstraction in Apache Spark and focus mainly on the pySpark perspective. 
 
 ### Three Types of Abstraction
 - RDD (resilient distributed dataset):
