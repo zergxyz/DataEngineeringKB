@@ -11,9 +11,16 @@ This document summarize the 3 types of data abstraction in Apache Spark and focu
 - Dataset (similar to relational tables):
   - High-level API (not available in PySpark)
 ----
-### RDD Operations
+### RDD 
 Spark RDDs are read-only, immutable, and distributed. RDDs support two types of operations: transformations, which transform the source RDD(s) into one or more new RDDs, and actions, which transform the source RDD(s) into a non-RDD object such as a dictionary or array. 
 <img width="1238" height="266" alt="rdd-transform-action" src="https://github.com/user-attachments/assets/1456d68b-457e-4551-ba34-6cff9aed0bf0" />
 
 ### DataFrame
 Similar to an RDD, a DataFrame in Spark is an immutable distributed collection of data. But unlike in an RDD, the data is organized into named columns, like a table in a relational database. 
+- Allowing higher-level abstraction
+- Make the processing of CSV and JSON files much easier than with RDDs.
+- Can execute SQL queries against DataFrames
+----
+**Transformation**
+
+Note that if you are grouping (using the groupByKey() transformation) in order to perform an aggregation, such as a sum or average, over each key, using reduceByKey() or aggregateByKey() will provide much better performance.
