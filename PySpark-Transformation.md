@@ -1,1 +1,2 @@
-
+# Mappers and Reducers
+Data summarization design patterns are techniques used to summarize large datasets into smaller, more meaningful representations, and the latest information on this topic includes various methods and models.we will explore the most important Spark transformations (mappers and reducers) in the context of data summarization design patterns, and examine how to select specific transformations for targeted problems.
