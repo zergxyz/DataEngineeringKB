@@ -8,7 +8,7 @@ Data summarization design patterns are techniques used to summarize large datase
 -  Abstractive summarization generates new text based on the original text to summarize it effectively.
 -  Data can be summarized using various models, including complete, summarized, minimal, and identifier models.
 
-### Transformation Pattern
+### Transformation Design Pattern
 These patterns are fundamental for writing efficient Spark applications!
 
 **In-Mapper Combiner**
@@ -60,3 +60,6 @@ def process_partition(iterator):
 # Do this instead:
 results = data.mapPartitions(process_partition)
 ```
+
+### Transformation Performance Guide
+For a large set of (key, value) pairs, using reduceByKey() or combineByKey() is typically more efficient than using the combination of groupByKey() and mapValues(), because they reduce the shuffling time.
