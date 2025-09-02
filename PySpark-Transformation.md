@@ -62,9 +62,10 @@ results = data.mapPartitions(process_partition)
 ```
 
 ### Transformation Performance Guide
-For a large set of (key, value) pairs, using reduceByKey() or combineByKey() is typically more efficient than using the combination of groupByKey() and mapValues(), because they reduce the shuffling time.
 
-A transformation is defined as “a thorough or dramatic change in form or appearance.
+A transformation is defined as “a thorough or dramatic change in form or appearance. 
+
+When running a Spark application (in Python, Java, or Scala), Spark creates a DAG and that graph. Because Spark transformations are lazily evaluated, the execution of the DAG will not start until an action (such as collect() or count()) is triggered. 
 
 **Mapper Transformation**
 Transformation | Relation type | Description
@@ -72,3 +73,6 @@ Transformation | Relation type | Description
 map(f) | 1-to-1 | Return a new RDD by applying a function (f()) to each element of this RDD. Source and target RDDs will have the same number of elements
 mapValues(f)| 1-to-1 | Pass each value in the (key, value) pair RDD through a map(f) function without changing the keys; this also retains the original RDD’s partitioning. Source and target RDDs will have the same number of elements 
 mapPartitions(f) | Many-to-1 | Return a new RDD by applying a function (f()) to each partition of the source RDD. Source and target RDDs might not have the same number of elements 
+
+For a large set of (key, value) pairs, using reduceByKey() or combineByKey() is typically more efficient than using the combination of groupByKey() and mapValues(), because they reduce the shuffling time.
+
