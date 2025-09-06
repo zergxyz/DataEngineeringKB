@@ -76,3 +76,25 @@ mapPartitions(f) | Many-to-1 | Return a new RDD by applying a function (f()) to 
 
 For a large set of (key, value) pairs, using reduceByKey() or combineByKey() is typically more efficient than using the combination of groupByKey() and mapValues(), because they reduce the shuffling time.
 
+Code summary
+```python
+exploded = df.select(df.name,
+    explode(df.known_languages).alias('language')) 
+```
+In the above code, explode will do a flatmap transformation on the dataframe but it will wipe out the empty list. If you need to keep the empty list records you should use the following ways; 
+```python
+# Use explode_outer() instead of explode()
+exploded = df.select(df.name,
+    explode_outer(df.known_languages).alias('language'))
+
+# Use when otherwise conditions
+from pyspark.sql.functions import explode_outer, when, col, size
+exploded = df.select(
+    df.name,
+    when(size(df.known_languages) > 0, 
+         explode_outer(df.known_languages))
+    .otherwise(lit("No languages"))
+    .alias('language')
+)
+```
+
