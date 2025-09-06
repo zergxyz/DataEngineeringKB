@@ -97,4 +97,5 @@ exploded = df.select(
     .alias('language')
 )
 ```
+**Reducer Transformation**
 
