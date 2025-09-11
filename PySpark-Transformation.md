@@ -98,4 +98,5 @@ exploded = df.select(
 )
 ```
 **Reducer Transformation**
+A reduction transformation roughly corresponds to the fold operation (also called reduce, accumulate, or aggregate) in functional programming. The transformation is either applied to all data elements (such as when finding the sum of all elements) or to all elements per key (such as when finding the sum of all elements per key)
 
