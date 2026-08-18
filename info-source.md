@@ -4,3 +4,5 @@ Taking your 20 minutes first thing in the morning—right after grabbing a cup o
 - [infoq](www.infoq.com)
 - [thoughtworks](www.thoughtworks.com/radar)
 - [Dzone Data Engineering](https://dzone.com/data-engineering)
+
+Use the folllowing link to try: [build your own radar](https://www.thoughtworks.com/radar/byor) 
