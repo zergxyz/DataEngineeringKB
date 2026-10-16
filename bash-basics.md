@@ -26,3 +26,13 @@ Remove leading and trailing hypens
 value="${value#-}"
 value="${value%-}"
 ```
+Array and string convertion
+```bash
+SPARK_PROPERTIES=(
+  "spark.serializer=org.apache.spark.serializer.KryoSerializer"
+  ...
+  "spark.dataproc.executorEnv.SPARK_NLP_LICENSE=${JSL_LICENSE}"
+)
+SPARK_PROPERTIES_CSV="$(IFS=,; printf '%s' "${SPARK_PROPERTIES[*]}")"
+# When (Internal Field Separator)IFS=,, this expands to:prop1,prop2,prop3,prop4,...
+```
