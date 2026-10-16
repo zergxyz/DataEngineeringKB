@@ -14,3 +14,15 @@ Required variable expansion:
 ${VAR:?error_message}
 JSL_LICENSE="${JSL_LICENSE:?export the JSL licence JWT before submitting}"
 ```
+
+### String Operations
+non-empty string test
+```bash
+if [ -n "$INPUT_PARTITIONS" ]; then
+```
+Remove leading and trailing hypens
+```bash
+# These remove at most one hyphen. If an input started with __, the first step turned it into --, and this will leave a single leading -.
+value="${value#-}"
+value="${value%-}"
+```
