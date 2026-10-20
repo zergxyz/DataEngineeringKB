@@ -345,3 +345,57 @@ TEXT_COLUMN_SETS=("name,bio" "title,body")
 2. Add support for `;` comments after a row (`users|name ; note`).
 3. Rewrite `trim` using `xargs` or `sed`, then compare with the pure-Bash version.
 4. Turn the two parallel arrays into one associative array (`declare -A cols; cols[users]="name,bio"`).
+
+
+## 17. /dev/null 
+`/dev/null` is a special pseudo-device file in Unix-like operating systems (such as Linux and macOS) that discards all data written to it while immediately returning an acknowledgment of success. It is commonly referred to as the operating system's **"bit bucket"** or digital black hole.
+
+### Core Behaviors
+
+* **Writing to `/dev/null`:** Any process that writes data to this path discards that data entirely. The OS does not write the bytes to disk or keep them in RAM; it simply reports that the write succeeded.
+* **Reading from `/dev/null`:** Attempting to read from `/dev/null` returns nothing—it instantly yields an End-of-File (`EOF`).
+
+---
+
+### Purpose in the Context of the Article
+
+In the command:
+
+```bash
+cat *.pgn > /dev/null
+
+```
+
+1. **`cat *.pgn`** reads every `.pgn` chess data file sequentially from storage.
+2. **`>`** redirects the standard output (`stdout`) stream away from the terminal screen.
+3. **`/dev/null`** silently consumes and deletes the stream as fast as it arrives.
+
+The author uses this to **measure raw disk read throughput (I/O baseline)**. Printing 3.46 GB of text to a standard terminal window is heavily bottlenecked by terminal emulator rendering speeds and line scrolling. By redirecting the output into `/dev/null`, all CPU overhead for terminal display and downstream data transformation is eliminated, leaving only the raw time required for the storage drive and operating system kernel to pull the bytes off the disk:
+
+$$\text{Throughput} = \frac{3.46\text{ GB}}{13\text{ seconds}} \approx 272\text{ MB/s}$$
+
+This sets the theoretical maximum speed limit: no downstream processing pipeline (using `grep`, `awk`, or anything else) can run faster than 272 MB/s on that machine because the hardware cannot read the data off the storage controller any faster.
+
+---
+
+### Common Day-to-Day Use Cases
+
+* **Suppressing command output:**
+```bash
+# Silence standard output:
+./script.sh > /dev/null
+
+# Silence error messages (stderr):
+grep -r "pattern" /path 2> /dev/null
+
+# Silence both stdout and stderr completely:
+./script.sh > /dev/null 2>&1
+
+```
+
+
+* **Instantly emptying a file without deleting it:**
+```bash
+cp /dev/null large_log_file.log
+
+```
